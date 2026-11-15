@@ -1,0 +1,207 @@
+<title>Ledgerstone Guide</title>
+<meta name="description" content="How Ledgerstone works: install, every tab, the exact rules behind each finding, the weekly audit, stored data, permissions, licensing and a test plan.">
+<main>
+<header class="doc-head"><span class="eyebrow"><i></i>Documentation</span>
+<h1>How <span class="grad">Ledgerstone</span> works</h1>
+<p class="lede">The complete guide for Jira administrators and reviewers: installing and opening the app, what each tab shows, the exact rules behind every finding, the weekly audit, what is stored, the permissions it uses, and how to try it on a test site.</p>
+<p class="doc-meta">Updated 9 November 2026 · Describes the current production version<span class="pdf-link"> · <a href="/ledgerstone/guide/Ledgerstone-Guide.pdf">PDF version</a></span> · Questions: <a href="/ledgerstone/support/#contact">send us a message</a> or write to <a href="mailto:support@monaidea.com">support@monaidea.com</a></p></header>
+
+<div class="doc">
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol>
+<li><a href="#what">1. What it does</a></li><li><a href="#requirements">2. Requirements</a></li><li><a href="#install">3. Install and open</a></li><li><a href="#page">4. The page at a glance</a></li><li><a href="#overview">5. Overview</a></li><li><a href="#schemes">6. Permission schemes</a></li><li><a href="#shares">7. Filters &amp; dashboards</a></li><li><a href="#people">8. Roles, groups &amp; users</a></li><li><a href="#access">9. Access check</a></li><li><a href="#ratings">10. How findings are rated</a></li><li><a href="#schedule">11. Weekly audit and trend</a></li><li><a href="#limits">12. Large sites and limits</a></li><li><a href="#data">13. What it stores</a></li><li><a href="#permissions">14. Permissions it asks for</a></li><li><a href="#licensing">15. Licensing</a></li><li><a href="#try">16. Try it on a test site</a></li><li><a href="#troubleshooting">17. Troubleshooting</a></li><li><a href="#uninstall">18. Uninstall</a></li><li><a href="#support">19. Support</a></li>
+</ol></nav>
+<article>
+
+<h2 id="what">1. What Ledgerstone does</h2>
+<p>Ledgerstone is a read-only audit app for Jira Cloud administrators. It answers one question: <strong>is our Jira more open than we think?</strong> It reads the site's configuration and lists the places where access is wider than intended:</p>
+<ul>
+<li>permission scheme grants open to the public or to every logged-in user;</li>
+<li>saved filters and dashboards shared publicly or with every logged-in user;</li>
+<li>project roles held by everyone with product access;</li>
+<li>inactive accounts still in administrative groups.</li></ul>
+<p>It also counts the site's accounts by type, keeps a weekly snapshot with a 12-run trend, and shows what it can read (the Access check). Each finding is rated <span class="sev high">High</span> or <span class="sev med">Medium</span> by fixed rules (section 10).</p>
+<p>Ledgerstone never changes anything in Jira: its only Jira scopes are read scopes (section 14). It runs entirely on Atlassian's Forge platform and makes no calls to servers outside Atlassian.</p>
+
+<h2 id="requirements">2. Requirements</h2>
+<ul>
+<li>A Jira Cloud site.</li>
+<li>A Jira administrator to install and use it. Ledgerstone is a Jira administration page, so only Jira administrators see it.</li>
+<li>For complete results the viewer needs <strong>Administer Jira</strong> and <strong>Browse users and groups</strong>, which Jira administrators normally have. The Access check tab shows what each identity can read.</li>
+<li>A licence: free for sites with up to 10 users; larger sites start with a 30-day free trial (section 15).</li></ul>
+
+<h2 id="install">3. Install and open</h2>
+<ol class="steps">
+<li><b>Install</b><span>Install Ledgerstone on your Jira Cloud site from its <a href="https://marketplace.atlassian.com/apps/861443927/ledgerstone-permission-audit-for-jira?hosting=cloud&amp;tab=overview">Atlassian Marketplace listing</a> and approve the read-only permissions it asks for.</span></li>
+<li><b>Open</b><span>In Jira, select <strong>Settings</strong> (the gear icon) → <strong>Apps</strong>, then choose <strong>Ledgerstone</strong> in the sidebar.</span></li>
+<li><b>Allow access</b><span>The first time, Jira asks you to let Ledgerstone read Jira as you. Accept to continue. The page's live reads use your Jira permissions.</span></li>
+<li><b>First audit</b><span>If no successful audit is on record for the site, Ledgerstone takes the first snapshot as soon as the page opens. A banner says <strong>Running your first audit</strong>; it takes a few seconds. After that the audit runs on its own once a week.</span></li>
+</ol>
+
+<h2 id="page">4. The page at a glance</h2>
+<p>The top card shows the name, the tagline "Read-only Jira permission audit" and a one-line <strong>verdict</strong>. On the right are the time of the last check ("Checked 14:05") and <strong>Refresh</strong>; during a trial, "Trial ends &lt;date&gt;" appears there too. Next to Refresh, <strong>Copy for your records</strong> opens the text of the last weekly audit (date, verdict, counts per area, the finding labels, what is new and resolved since the previous run) in a box you can copy into your audit evidence; it is available once a weekly audit has succeeded. The verdict follows this order:</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Verdict</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Checking the site…</td><td>Sections are still loading.</td></tr>
+<tr><td>N sections could not be read</td><td>At least one section returned an error. Its tab shows why (section 17).</td></tr>
+<tr><td>N high findings need attention</td><td>At least one High finding.</td></tr>
+<tr><td>N medium findings to review</td><td>No High finding, at least one Medium.</td></tr>
+<tr><td>N items could not be verified</td><td>Nothing flagged, but an administrative group could not be fully read.</td></tr>
+<tr><td>All clear</td><td>No section failed and nothing that was read is flagged. A tab can still carry an <em>Incomplete</em> marker (section 12).</td></tr></tbody></table></div>
+<p>Five tabs follow: <strong>Overview</strong>, <strong>Permission schemes</strong>, <strong>Filters &amp; dashboards</strong>, <strong>Roles, groups &amp; users</strong> and <strong>Access check</strong>. A tab's badge shows its number of findings (High, Medium and could-not-verify), coloured by the most serious; <strong>!</strong> means one of its sections could not be read.</p>
+<div class="note"><strong>Live versus stored.</strong> Every tab is read live from Jira, as you, when the page opens and when you click <strong>Refresh</strong>; the one exception is the Access check's App column, which is read as the app. Only the Overview's <em>Weekly trend</em> and its "Last weekly run" line come from the stored weekly audit (section 11).</div>
+
+<h2 id="overview">5. Overview</h2>
+<figure class="shot"><img src="/ledgerstone/guide/img/overview.png" alt="Ledgerstone Overview tab: verdict line, four totals, findings by area and the weekly trend" width="1600" height="759" loading="lazy"><figcaption>Overview on a test site: the verdict, four totals, findings by area and the weekly trend.</figcaption></figure>
+<ul>
+<li><strong>Four totals:</strong> High findings, Medium findings, Could not verify, and Objects scanned (permission schemes, saved filters, dashboards, role assignments, groups and accounts read). Findings are counted per grant for schemes, per filter or dashboard, per role assignment row and per group: two inactive members of one administrative group count as one finding.</li>
+<li><strong>Findings by area:</strong> one row each for Permission schemes, Saved filters, Dashboards, Role assignments, Groups and Accounts, with High, Medium and Scanned counts and an <strong>Open</strong> link to the tab. The card's header line shows the last weekly run (time and status) and the site's number of projects.</li>
+<li><strong>Weekly trend:</strong> the stored weekly runs, newest first, up to 12. Each shows High, Medium, Unverified and Scanned with the change since the previous run (red or amber for more findings, green for fewer). Status is <em>ok</em>, <em>failed</em>, or <em>N unread</em> when some areas could not be read; the change is then compared only on the areas read in both runs. <strong>Run snapshot now</strong> sits on this card.</li></ul>
+
+<h2 id="schemes">6. Permission schemes</h2>
+<figure class="shot"><img src="/ledgerstone/guide/img/schemes.png" alt="Permission schemes tab: schemes with their projects and counts, then the flagged grants" width="1600" height="695" loading="lazy"><figcaption>Every permission scheme with the projects that use it, then each flagged grant.</figcaption></figure>
+<p>Ledgerstone reads every permission scheme with all of its grants, and which projects use each scheme. Schemes that no project uses are checked too.</p>
+<ul>
+<li><strong>Permission schemes</strong> table: each scheme, the projects that use it (more than three are shown as "N projects"; hover to see them), and its High and Medium counts.</li>
+<li><strong>Flagged grants</strong> table: one row per risky grant with the scheme, the permission key (for example <code>BROWSE_PROJECTS</code>), who it is granted to, and the rating. Hover the rating for the reason. It shows 20 rows per page, grouped by scheme; sort by <strong>Permission</strong> to find a grant. With nothing flagged the tab says "No risky grants".</li></ul>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Granted to</th><th>Rating</th></tr></thead><tbody>
+<tr><td>Public: "Anyone (public, no login)"</td><td><span class="sev high">High</span></td></tr>
+<tr><td>Any logged-in user; any user with a product's access (for example "Any user with Jira Software access"); or a default product-access group such as <code>jira-users-&lt;site&gt;</code></td><td><span class="sev high">High</span> for the eight administrative or destructive permissions below; <span class="sev med">Medium</span> for every other permission</td></tr>
+<tr><td>A named group, a single user, a project role, a user or group custom field, the reporter, the current assignee, the project lead, or Service Desk portal customers</td><td><span class="sev none">Not flagged</span> (a specific, deliberate grant)</td></tr></tbody></table></div>
+<p><strong>Administrative or destructive permissions:</strong> <code>ADMINISTER_PROJECTS</code>, <code>EDIT_WORKFLOW</code>, <code>EDIT_ISSUE_LAYOUT</code>, <code>DELETE_ISSUES</code>, <code>DELETE_ALL_COMMENTS</code>, <code>DELETE_ALL_ATTACHMENTS</code>, <code>DELETE_ALL_WORKLOGS</code>, <code>SET_ISSUE_SECURITY</code>.</p>
+<p><strong>Default product-access groups</strong> are recognised by name: <code>jira-users</code>, <code>jira-software-users</code>, <code>jira-servicemanagement-users</code>, <code>jira-servicedesk-users</code>, <code>jira-core-users</code>, <code>jira-work-management-users</code> and <code>jira-product-discovery-users</code>, each with or without the site's suffix (for example <code>jira-users-acme</code>). Every licensed user is a member, so a grant to one of them reaches everyone.</p>
+<p>To map projects to schemes, Ledgerstone asks Jira once per project. On very large sites, projects it could not map in time are listed as "Not mapped" with an <em>Incomplete</em> marker; every scheme's grants are still checked.</p>
+
+<h2 id="shares">7. Filters &amp; dashboards</h2>
+<figure class="shot"><img src="/ledgerstone/guide/img/shares.png" alt="Filters and dashboards tab: saved filters and dashboards shared too widely" width="1600" height="678" loading="lazy"><figcaption>Only items shared too widely are listed; the header says how many were checked and whose view it is.</figcaption></figure>
+<p>Two cards, <strong>Saved filters</strong> and <strong>Dashboards</strong>, list only the items shared too widely: name, owner (marked "inactive" if the owner's account is deactivated), who it is shared with, and the rating. An item takes the rating of its most open share. With nothing flagged a card says "Nothing shared too widely".</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Shared with</th><th>Rating</th></tr></thead><tbody>
+<tr><td>Anyone on the web (public)</td><td><span class="sev high">High</span></td></tr>
+<tr><td>Any logged-in user</td><td><span class="sev med">Medium</span></td></tr>
+<tr><td>A group, a project, a project role or a single user</td><td><span class="sev none">Not flagged</span></td></tr></tbody></table></div>
+<ul>
+<li><strong>Saved filters: site-wide.</strong> As a Jira administrator, the page asks Jira for every filter on the site, not only those shared with you.</li>
+<li><strong>Dashboards: your view.</strong> Jira's dashboard search has no administrator option, so this list holds the dashboards you can see.</li>
+<li>The weekly audit reads as the app (section 11): its filter list is site-wide only when the app's identity holds Administer Jira (see the Access check); otherwise it is the app's own view.</li></ul>
+
+<h2 id="people">8. Roles, groups &amp; users</h2>
+<figure class="shot"><img src="/ledgerstone/guide/img/people.png" alt="Roles, groups and users tab: role assignments, administrative and default-access groups, and account counts" width="1600" height="764" loading="lazy"><figcaption>Role assignments, administrative and default-access groups, and account counts. One person's name and the test site's name are blurred in this screenshot.</figcaption></figure>
+<h3>Role assignments</h3>
+<p>For every project role, Ledgerstone reads its default members (shown with the project "(default)") and its members in each project, and lists every role that has members: project, role, members and rating. The group Jira uses for apps is shown as "Apps (atlassian-addons-project-access)".</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Member</th><th>Rating</th></tr></thead><tbody>
+<tr><td>A default product-access group (every licensed user) in an administrative role: Jira's built-in administrator role, or a role named Administrator or Administrators</td><td><span class="sev high">High</span></td></tr>
+<tr><td>A default product-access group in any other role</td><td><span class="sev med">Medium</span></td></tr>
+<tr><td>Named users and other groups</td><td><span class="sev none">Not flagged</span></td></tr></tbody></table></div>
+<p>A project whose roles could not all be read in time is listed under "Not read" instead of being shown partly. The table shows up to 500 rows.</p>
+<h3>Groups</h3>
+<p>Ledgerstone reads every group's size, and the full membership of administrative groups so that inactive administrators can be spotted. The table shows administrative groups (marked <em>admin</em>), default-access groups (<em>default access</em>) and any flagged group; the header counts the others. Member counts include inactive accounts.</p>
+<p>A group is <strong>administrative</strong> when Jira reports it as granting site-admin or admin access, or when it is named <code>site-admins</code>, <code>org-admins</code>, <code>administrators</code>, <code>system-administrators</code>, <code>jira-administrators</code>, <code>jira-admins</code> (with or without a suffix) or <code>atlassian-addons-admin</code>.</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Finding</th><th>Rating</th></tr></thead><tbody>
+<tr><td>An inactive account (a person's or an app's) that is still a member of an administrative group. Deactivated accounts are often reactivated later without anyone re-checking what they belonged to.</td><td><span class="sev high">High</span></td></tr>
+<tr><td>An administrative group whose members could not be read completely: more than 500 members, or the time limit was reached</td><td><span class="sev unk">Could not verify</span></td></tr></tbody></table></div>
+<p>Inactive members' names are shown on the page, read live from Jira. They are not stored.</p>
+<h3>Accounts</h3>
+<p>Counts of the site's accounts: total, active, inactive or deleted, apps, customer accounts and guests. Accounts are counted, not rated, and no per-person data is kept. Ledgerstone reads up to 8,000 accounts; beyond that, or if Jira is slow, it says "stopped early; counts are a lower bound".</p>
+
+<h2 id="access">9. Access check</h2>
+<figure class="shot"><img src="/ledgerstone/guide/img/access.png" alt="Access check tab: each read with its result as the app and as you" width="1600" height="415" loading="lazy"><figcaption>The same reads, made as the app and as you, side by side.</figcaption></figure>
+<p>Scopes decide which Jira APIs an app may call, but Jira also checks product permissions such as Administer Jira and Browse users and groups. The Access check makes the same small set of reads twice, <strong>as the app</strong> (the identity of the weekly audit) and <strong>as you</strong> (the identity of the page), and shows the results side by side, so a gap in coverage is never silent. Most reads ask for a single item, and the page receives only each read's result, a count and a short note.</p>
+<ul>
+<li><strong>Administer Jira</strong> and <strong>Browse users and groups</strong>: granted or not granted.</li>
+<li><strong>Permission schemes, Projects, Global project roles, Groups, Group members, Users, Filters (own view), Filters (site-wide), Dashboards</strong>: ok with a count, empty, or failed with the HTTP status and the reason (scope error, not permitted, not found, rate limited).</li>
+<li><strong>Filters (site-wide)</strong> adds a note: "admin", "site-wide view confirmed", or "override ignored" when Jira returned only that identity's own filters.</li>
+<li>Counts come from a one-item read, so they show what Jira reported for that single request: the Users count, for example, is 0 or 1, not the number of accounts. The tab's badge counts reads that failed or were not granted as High and empty reads as Medium, so that a gap stands out.</li></ul>
+
+<h2 id="ratings">10. How findings are rated</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Rating</th><th>Means</th><th>Examples</th></tr></thead><tbody>
+<tr><td><span class="sev high">High</span></td><td>Open to the public, administrative or destructive power for every user, or an inactive account in an administrative group</td><td>Browse projects granted to Public; Delete issues granted to any logged-in user; a dashboard shared with anyone on the web</td></tr>
+<tr><td><span class="sev med">Medium</span></td><td>Open to every logged-in or licensed user</td><td>A filter shared with any logged-in user; <code>jira-users-&lt;site&gt;</code> in a project's Member role</td></tr>
+<tr><td><span class="sev unk">Could not verify</span></td><td>Not fully read, so not known to be fine</td><td>An administrative group with more than 500 members</td></tr>
+<tr><td><span class="sev none">Not flagged</span></td><td>A specific, deliberate grant or share</td><td>A permission granted to a named group or project role</td></tr></tbody></table></div>
+<p>A section that fails is never counted as clean. A list cut short carries a marker (<em>Incomplete</em>, <em>Not mapped</em>, <em>Not read</em> or <em>Could not verify</em>), and its counts cover only what was read. A section that fails shows "Could not read" with one of these reasons: <em>The licence is inactive</em>, <em>Missing app scope</em>, <em>Not permitted for this identity</em>, <em>Rate limited; retry shortly</em>, <em>Jira gave up after 10 seconds</em> or <em>Unexpected error</em>.</p>
+
+<h2 id="schedule">11. Weekly audit, trend and Run snapshot now</h2>
+<ul>
+<li><strong>Schedule.</strong> Atlassian's Forge platform runs Ledgerstone's scheduled job every hour. The job runs the full audit when the last successful audit is more than 6 days and 20 hours old, when the last run failed, or when no audit is on record; otherwise it only records that the schedule is alive. The result is one audit a week. If the job itself fails, the next hourly run tries again; an area that fails inside a run is shown as unread until the next audit.</li>
+<li><strong>Identity.</strong> The job has no user, so it reads Jira as the app. Its results depend on the app's Jira permissions, which the Access check shows.</li>
+<li><strong>Time.</strong> The job has up to 270 seconds; each of the six areas gets up to 40 seconds of it. An area that fails is recorded as unread. An area that runs out of time keeps what it read, and its numbers are then a lower bound.</li>
+<li><strong>What it keeps.</strong> The latest snapshot (counts plus the flagged items, without personal data; section 13) and a history of up to 12 runs, one per UTC day: a second run on the same day replaces that day's entry.</li>
+<li><strong>Run snapshot now</strong> (Overview → Weekly trend) runs the same job immediately, as the app. It must finish within Jira's 25-second limit for page actions, so each area gets about 3 seconds, and on large sites some areas may stop early. A successful manual run also restarts the weekly clock: the next scheduled audit comes 6 days and 20 hours later. Only Jira administrators can run it.</li>
+<li><strong>First open.</strong> On a site with no successful audit on record, the page starts this snapshot by itself, once, when it opens.</li>
+<li><strong>Refresh or Run snapshot now?</strong> Refresh re-reads the tabs live as you and does not change the trend. Run snapshot now updates the stored snapshot and the trend.</li></ul>
+
+<h2 id="limits">12. Large sites and time limits</h2>
+<p>Each part of the page is read with its own 15-second budget, inside Jira's 25-second limit, so one slow area cannot block the others. Lists are read page by page, up to:</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>List</th><th>Read up to</th></tr></thead><tbody>
+<tr><td>Projects</td><td>2,000</td></tr><tr><td>Saved filters</td><td>4,000</td></tr><tr><td>Dashboards</td><td>4,000</td></tr><tr><td>Groups</td><td>2,000</td></tr><tr><td>Members of each administrative group</td><td>500</td></tr><tr><td>Accounts</td><td>8,000</td></tr><tr><td>Role assignment rows shown</td><td>500</td></tr></tbody></table></div>
+<p>When a limit or the time budget is reached, the area says so with <em>Incomplete</em>, <em>Not mapped</em>, <em>Not read</em> or <em>Could not verify</em>, and its counts cover only what was read. Jira rate limits and temporary gateway errors are retried with backoff, honouring Jira's Retry-After header within the time budget.</p>
+
+<h2 id="data">13. What Ledgerstone stores</h2>
+<p>Ledgerstone keeps a small amount of data in its own Forge storage, inside Atlassian's cloud and under your site's data residency.</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Stored</th><th>Contents</th></tr></thead><tbody>
+<tr><td>Latest weekly snapshot</td><td>Counts per area and, for flagged items, non-personal labels: scheme, filter, dashboard, group and role names, permission keys, project keys and share types. People appear only as "A named user" or "A named app"; shares with individual users are only counted; owners' and inactive administrators' names are not stored. Every administrative group is kept with its size and its number of inactive members.</td></tr>
+<tr><td>Run history (up to 12)</td><td>Counts per area and in total, and each run's status and time.</td></tr>
+<tr><td>Heartbeat</td><td>The time of the last hourly check.</td></tr></tbody></table></div>
+<ul>
+<li><strong>Not stored:</strong> people's names, account IDs, email addresses or issue content. People's names appear only on the page, read live from Jira for the viewing administrator.</li>
+<li><strong>Logs:</strong> timings, counts, HTTP status codes, the site's cloud ID and the app's own messages; a failed read can also log a project key or a group or role name. Logs contain no people's names, email addresses, account IDs or Jira response bodies, and are visible only to the app's developer through Atlassian's Forge tooling.</li>
+<li><strong>No egress:</strong> Ledgerstone makes no network calls outside Atlassian and uses no third-party services.</li></ul>
+<p>Full details: <a href="/ledgerstone/privacy/">Privacy policy</a>.</p>
+
+<h2 id="permissions">14. Permissions it asks for</h2>
+<p>Ledgerstone declares 19 scopes: its own storage and 18 Jira <strong>read</strong> scopes. It has no write, delete or manage scope, so it cannot change anything in Jira. It uses Atlassian's fine-grained ("granular") read scopes rather than the broad classic ones, because the classic scopes would also allow reading issues, comments, attachments and email addresses, which an audit does not need. Some scopes are needed only because Jira embeds those objects in the responses Ledgerstone reads (project objects include their versions and components, for example), and Jira rejects a call unless every scope that endpoint lists is granted.</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Scope</th><th>Why</th></tr></thead><tbody>
+<tr><td><code>storage:app</code></td><td>Ledgerstone's own private storage (section 13). No Jira access.</td></tr>
+<tr><td><code>read:permission-scheme:jira</code></td><td>Permission schemes, and the scheme each project uses</td></tr>
+<tr><td><code>read:permission:jira</code></td><td>The permission catalogue and the grants inside each scheme</td></tr>
+<tr><td><code>read:project-role:jira</code></td><td>Project roles and who holds them</td></tr>
+<tr><td><code>read:group:jira</code></td><td>Groups, their members, and group-based grants</td></tr>
+<tr><td><code>read:user:jira</code></td><td>Users, user-based grants and role members</td></tr>
+<tr><td><code>read:project:jira</code></td><td>Projects, and projects referenced in shares and roles</td></tr>
+<tr><td><code>read:filter:jira</code></td><td>Saved filters and their share settings</td></tr>
+<tr><td><code>read:dashboard:jira</code></td><td>Dashboards and their share settings</td></tr>
+<tr><td><code>read:jql:jira</code></td><td>Each filter's query, which is part of Jira's filter response</td></tr>
+<tr><td><code>read:field:jira</code></td><td>Grants that point to a user or group field</td></tr>
+<tr><td><code>read:application-role:jira</code></td><td>Product access embedded in user objects</td></tr>
+<tr><td><code>read:avatar:jira</code></td><td>Avatars embedded in user, project and group objects</td></tr>
+<tr><td><code>read:project-category:jira</code></td><td>Categories embedded in project objects</td></tr>
+<tr><td><code>read:project.property:jira</code></td><td>Project properties that project search can include</td></tr>
+<tr><td><code>read:project-version:jira</code></td><td>Versions embedded in project objects</td></tr>
+<tr><td><code>read:project.component:jira</code></td><td>Components embedded in project objects</td></tr>
+<tr><td><code>read:issue-type:jira</code></td><td>Issue types embedded in project objects</td></tr>
+<tr><td><code>read:issue-type-hierarchy:jira</code></td><td>The issue type hierarchy embedded in project objects</td></tr></tbody></table></div>
+<p><strong>Identities.</strong> The page reads Jira as you, and Jira applies your permissions. The weekly job and Run snapshot now read as the app. Before showing anything gathered as the app (the stored snapshot, the trend and the Access check), the page confirms that the viewer holds Administer Jira.</p>
+
+<h2 id="licensing">15. Licensing</h2>
+<ul>
+<li>Sites with up to 10 users: free.</li>
+<li>Larger sites: a 30-day free trial, then a paid subscription billed through the Atlassian Marketplace (see <a href="/ledgerstone/#pricing">Pricing</a>). During a trial the header shows "Trial ends &lt;date&gt;", and in the last 7 days of the trial the Overview adds a reminder with a link to Manage apps.</li>
+<li>Without an active licence or trial, the page shows "Ledgerstone is not licensed on this site" with an <strong>Open Manage apps</strong> button, and the page makes no reads from Jira.</li></ul>
+
+<h2 id="try">16. Try it on a test site</h2>
+<p>For Atlassian reviewers and anyone evaluating Ledgerstone. These steps change a test site's configuration to produce findings; undo them afterwards. Jira's menu names vary a little between sites: newer sites say "work items" for issues and "spaces" for projects.</p>
+<ol class="steps">
+<li><b>Baseline</b><span>Open Ledgerstone (Settings → Apps → Ledgerstone). On a new site the first audit runs at once. Most sites already show Medium findings, because Jira's default permission schemes grant many permissions to any logged-in user.</span></li>
+<li><b>A High grant in a permission scheme</b><span>In Jira, open <strong>Settings → Work items → Permission schemes</strong> and pick any scheme (Ledgerstone checks every scheme, used or not). Find <strong>Delete issues</strong> (possibly "Delete work items"), select <strong>Update</strong>, choose <strong>Any logged in user</strong> and save. In Ledgerstone click <strong>Refresh</strong>: Permission schemes lists <code>DELETE_ISSUES</code> · Any logged-in user · High (sort the Flagged grants table by Permission to find it), and the verdict counts it.</span></li>
+<li><b>A public grant (optional)</b><span>If your site allows public access, grant any permission to <strong>Public</strong>. Ledgerstone shows it as "Anyone (public, no login)", High.</span></li>
+<li><b>A filter shared too widely</b><span>Save any filter, then in Filters open its <strong>⋯</strong> menu → <strong>Edit</strong> and, under <strong>Viewers</strong>, share it with all logged-in users of the site (Jira may call this "My organization"); save. This needs Jira's Share dashboards and filters permission. <strong>Refresh</strong>: Filters &amp; dashboards lists it as Medium, "Any logged-in user".</span></li>
+<li><b>A role held by everyone</b><span>In a company-managed project's settings, open <strong>People</strong> and add the default access group (for example <code>jira-users-&lt;your site&gt;</code>) to a role. <strong>Refresh</strong>: Roles, groups &amp; users lists it as Medium; in the Administrator role it is High.</span></li>
+<li><b>The trend</b><span>Reload the page, then on the Overview click <strong>Run snapshot now</strong>. The Weekly trend replaces today's row (one row per UTC day) with the new totals, read as the app. A change appears only against a run from an earlier day.</span></li>
+<li><b>What the app can read</b><span>Open <strong>Access check</strong> to compare what the weekly job (as the app) and the page (as you) can read. Then undo the test changes and click <strong>Refresh</strong>.</span></li>
+</ol>
+
+<h2 id="troubleshooting">17. Troubleshooting</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>You see</th><th>What to do</th></tr></thead><tbody>
+<tr><td>Jira asks you to allow access</td><td>Accept. The page reads Jira with your permissions and cannot load without your consent.</td></tr>
+<tr><td>"N sections could not be read"</td><td>Open the tab marked <strong>!</strong>; its card says why. If no tab is marked, the failing part is the Overview's weekly trend. For "Rate limited" or "Jira gave up after 10 seconds", click Refresh after a minute. For "Missing app scope" or "Not permitted for this identity", check the Access check tab and write to support.</td></tr>
+<tr><td>"Could not verify" on Groups</td><td>An administrative group has more than 500 members or was not fully read in time. Click Refresh, or review its members in Atlassian Administration.</td></tr>
+<tr><td>Incomplete, Not mapped or Not read</td><td>A large site reached a page or time limit (section 12). The counts shown are a lower bound.</td></tr>
+<tr><td>The Weekly trend is empty</td><td>The first audit runs when the page first opens; click Run snapshot now. After that, one run a week.</td></tr>
+<tr><td>Dashboards say "your view"</td><td>Expected: Jira lists only the dashboards you can see.</td></tr>
+<tr><td>The Access check shows "not granted" for the app</td><td>The weekly audit sees less than the page, for example filters only in the app's own view. The live tabs are not affected.</td></tr>
+<tr><td>"Ledgerstone is not licensed on this site"</td><td>Start a trial or subscribe from Manage apps.</td></tr></tbody></table></div>
+
+<h2 id="uninstall">18. Uninstall</h2>
+<p>In Jira, select <strong>Settings → Apps → Manage apps</strong>, find Ledgerstone and choose <strong>Uninstall</strong>. This stops the weekly job. Atlassian then deletes the data Ledgerstone stored under its <a href="https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/">Forge hosted-storage data lifecycle</a>: the data is soft-deleted, then permanently removed after Atlassian's retention period. Within 21 days of uninstalling, Atlassian can relink a reinstall to it on request.</p>
+
+<h2 id="support">19. Support</h2>
+<p>Send us a message from the <a href="/ledgerstone/support/#contact">support page</a> with your Jira site address, or write to <a href="mailto:support@monaidea.com">support@monaidea.com</a> if you want to attach a screenshot. We reply within two business days (Monday to Friday, 9:00–17:00 US Central). Never send passwords, API tokens or exports of your user list: we will never ask for them.</p>
+</article></div></main>
