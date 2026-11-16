@@ -1,6 +1,7 @@
 {
   "base": "https://atlapps.monaidea.com",
   "notes": ["Independent apps for Atlassian Cloud. Not affiliated with Atlassian."],
+  "private": ["tools"],
   "sections": {
     "ledgerstone": {
       "name": "Ledgerstone",

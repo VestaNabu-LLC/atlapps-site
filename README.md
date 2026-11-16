@@ -4,16 +4,19 @@ The pages of Monaidea's Atlassian apps: `/` lists them, and each app's own
 pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`). Rules for anyone
 changing it: `CLAUDE.md`.
 
-A page under `pages/` holds content only. On every push to `main` the `publish`
-workflow checks out the Monaidea brand (repository `VestaNabu-LLC/monaidea`,
-folder `brand/`) and its stamper builds the site: it adds the stylesheet,
-fonts, header, footer and scripts to every page, checks every link inside the
-site, and refuses to build if one page cannot be stamped. GitHub Pages serves
-the result.
+A page under `pages/` holds content only. The stamper of the Monaidea brand
+(repository `VestaNabu-LLC/monaidea`, folder `brand/`) writes the finished page
+from it into this repository, at the page's path: it adds the stylesheet,
+fonts, header, footer and scripts, checks every link inside the site, and
+writes nothing if one page breaks a rule. The finished pages are committed, and
+GitHub Pages serves `main` as it is. Pictures, videos and the guide's PDF sit
+at the paths they are published at (`ledgerstone/media/…`). A check on every
+push fails when the committed files are not what the stamper writes.
 
 ```sh
-git clone --depth 1 https://github.com/VestaNabu-LLC/monaidea ../monaidea   # once
-node ../monaidea/brand/stamp.mjs . _site                                   # the site as it will be published
+git clone --depth 1 https://github.com/VestaNabu-LLC/monaidea ../monaidea   # once; later: git -C ../monaidea pull
+node ../monaidea/brand/stamp.mjs .            # then commit what it wrote
+node ../monaidea/brand/stamp.mjs . --check
 ```
 
 Until 2026-11-15 the two apps had a site each, `ledgerstone.monaidea.com`

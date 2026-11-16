@@ -1,26 +1,24 @@
 // Prints the Ledgerstone guide page to its PDF: A4, page numbers, the site's
 // own fonts. Needs Playwright with Chromium (Claude's cloud sessions have it).
+// Run it from the repository's root, after the stamper:
 //
-//   node ../monaidea/brand/stamp.mjs . _site
-//   node tools/guide-pdf.mjs _site pages/ledgerstone/guide/Ledgerstone-Guide.pdf
+//   node ../monaidea/brand/stamp.mjs .
+//   node tools/guide-pdf.mjs
 //
-// Run it from the repository's root (it reads site.json for the site's
-// address). Then build again, so the site carries the new PDF. The script
-// refuses to print when a picture is missing (the PDF of 2026-10-16 lacked
-// three of its five), and it gives every link inside the site its public
-// address (the PDFs before 2026-11-15 linked to the computer that printed them).
+// It writes ledgerstone/guide/Ledgerstone-Guide.pdf, the file the guide links
+// to; commit it with the page. The script refuses to print when a picture is
+// missing (the PDF of 2026-10-16 lacked three of its five), and it gives every
+// link inside the site its public address (the PDFs before 2026-11-15 linked
+// to the computer that printed them).
 import http from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join } from 'node:path';
 import { createRequire } from 'node:module';
 
 const { chromium } = createRequire(import.meta.url)('playwright');
-const [site, out] = process.argv.slice(2);
-if (!site || !out) {
-  console.error('usage: node tools/guide-pdf.mjs <built site folder> <PDF to write>');
-  process.exit(2);
-}
+const site = '.';
 const PAGE = '/ledgerstone/guide/';
+const out = 'ledgerstone/guide/Ledgerstone-Guide.pdf';
 const BASE = JSON.parse(readFileSync('site.json', 'utf8')).base;
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.jpg': 'image/jpeg' };
 const server = http.createServer((req, res) => {
