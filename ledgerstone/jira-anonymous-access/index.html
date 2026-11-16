@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jira anonymous access: is any of your Jira visible to anyone on the web?</title><meta name="description" content="What Public and Any logged in user expose in Jira Cloud, a one-minute test, where to check by hand (permission schemes, filters, dashboards) and how to fix each."><meta name="theme-color" content="#070a12">
+<link rel="canonical" href="https://atlapps.monaidea.com/ledgerstone/jira-anonymous-access/">
+<meta property="og:site_name" content="Monaidea"><meta property="og:type" content="article"><meta property="og:title" content="Jira anonymous access: is any of your Jira visible to anyone on the web?"><meta property="og:description" content="What the two broad grants expose in Jira Cloud, where to check each by hand, and how to fix them."><meta property="og:url" content="https://atlapps.monaidea.com/ledgerstone/jira-anonymous-access/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%236366f1%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20transform%3D%22translate(4%204)%20scale(.75)%22%3E%3Cpath%20d%3D%22M16%203%205%207v8c0%207%204.7%2011.7%2011%2014%206.3-2.3%2011-7%2011-14V7L16%203Z%22%2F%3E%3Cpath%20d%3D%22M10%2013h12M10%2017.5h12M12.5%2022h7%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<link rel="stylesheet" href="/style.css?v=9a7d93c2">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Jira anonymous access: is any of your Jira visible to anyone on the web?","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Organization","name":"Monaidea"},"publisher":{"@type":"Organization","name":"Monaidea","url":"https://www.monaidea.com/"},"mainEntityOfPage":"https://atlapps.monaidea.com/ledgerstone/jira-anonymous-access/"}</script>
+</head><body>
+<div class="sky" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<header data-of="the brand"><nav><a class="brand" href="https://www.monaidea.com/">Monaidea</a><a href="https://atlapps.monaidea.com/" aria-current="true">Atlassian Apps</a><a href="https://shops.monaidea.com/">Shops</a><a href="https://www.monaidea.com/#contact">Contact</a></nav></header>
+<nav class="subnav" aria-label="Ledgerstone"><div class="subnav-in"><a class="subnav-name" href="/ledgerstone/"><span class="mark"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3 5 7v8c0 7 4.7 11.7 11 14 6.3-2.3 11-7 11-14V7L16 3Z"/><path d="M10 13h12M10 17.5h12M12.5 22h7"/></svg></span>Ledgerstone</a><a href="/ledgerstone/">Overview</a><a href="/ledgerstone/guide/">Guide</a><a href="/ledgerstone/support/">Support</a><a href="/ledgerstone/privacy/">Privacy</a><a href="/ledgerstone/security/">Security</a></div></nav>
+<main>
+<header class="doc-head"><span class="eyebrow"><i></i>Security guide</span>
+<h1>Jira <span class="grad">anonymous access</span></h1>
+<p class="lede">Jira Cloud can show a space, a filter or a dashboard to people who are not logged in. Sometimes that is on purpose, such as a public roadmap. Often it is a setting someone changed years ago and forgot. Here is what the two broad grants expose, where to check each by hand, and how to fix them.</p>
+<p class="doc-meta">Published 16 November 2026 · Jira Cloud · A practical guide, not legal advice</p></header>
+
+<div class="doc">
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol>
+<li><a href="#grants">What the two broad grants mean</a></li><li><a href="#test">A one-minute test</a></li><li><a href="#schemes">1. Permission schemes</a></li><li><a href="#filters">2. Shared filters</a></li><li><a href="#dashboards">3. Dashboards</a></li><li><a href="#keep">What to keep</a></li><li><a href="#ledgerstone">The same check on one page</a></li>
+</ol></nav>
+<article>
+
+<h2 id="grants">What the two broad grants mean</h2>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Holder, as Jira shows it</th><th>Who that is</th><th>How serious</th></tr></thead>
+<tbody>
+<tr><td>Public</td><td>Anyone on the internet, without logging in (anonymous access)</td><td><span class="sev high">Fix first</span></td></tr>
+<tr><td>Any logged in user</td><td>Everyone who can log in to the site</td><td><span class="sev med">Check intent</span></td></tr>
+</tbody></table></div>
+<p><strong>Public</strong> means no login at all: a person with the link can use the permission. On the browse permission of a space, that is every work item in it: summaries, descriptions, comments and attachments. On a filter or a dashboard, it is whatever that filter or dashboard lists.</p>
+<p><strong>Any logged in user</strong> is narrower but still wide: everyone with an account on your site, whether or not they work on that space.</p>
+<p>Treat the first as a possible leak to the internet and the second as a question: is it right that everyone with an account can read this? Either can be correct. The risk is a grant nobody remembers making.</p>
+<div class="note"><strong>Names changed.</strong> Jira Cloud now calls projects <strong>spaces</strong> and issues <strong>work items</strong>. This guide uses the new names. If a menu path below does not match your screen, use the search box in Jira settings.</div>
+
+<h2 id="test">A one-minute test</h2>
+<p>Copy the link of a work item, a filter or a dashboard, and open it in a private browser window, where you are not logged in. If you see the content instead of a login page, it is public. This proves one link only; the checks below find the rest.</p>
+
+<h2 id="schemes">1. Permission schemes: the browse permission</h2>
+<ul>
+<li><strong>Check:</strong> Settings (the gear icon) → Work items → Permission schemes. Open each scheme and find the permission to browse the space. Look for <strong>Public</strong> and <strong>Any logged in user</strong> among its holders. Then see which spaces use the scheme: one scheme can open many spaces.</li>
+<li><strong>Fix:</strong> edit the scheme, remove the broad holder, and grant the permission to a space role or a named group instead. Check the same two holders on the other permissions too, especially creating and editing work items and administering the space.</li>
+</ul>
+
+<h2 id="filters">2. Shared filters</h2>
+<ul>
+<li><strong>Check:</strong> Settings → System → Filters. Look for filters shared publicly or with all logged-in users. A shared filter only leaks if its query returns work items the audience should not see, so open each flagged one and read what it returns.</li>
+<li><strong>Fix:</strong> the filter's owner changes the sharing from the filter's details: replace the broad share with a space, a role or a group. Admins can change a filter's owner or delete it from the same list, which helps when the owner has left.</li>
+</ul>
+
+<h2 id="dashboards">3. Dashboards</h2>
+<ul>
+<li><strong>Check:</strong> Settings → System → Dashboards (under Shared items). The search shows each dashboard's owner and who it is shared with. Look for dashboards shared publicly or with all logged-in users, and for dashboards whose owner has left. Gadgets can list work items, names and counts.</li>
+<li><strong>Fix:</strong> narrow the sharing the same way, or change the owner first so someone is responsible for it.</li>
+</ul>
+
+<h2 id="keep">What to keep</h2>
+<p>Write down the date, what you checked, every broad grant you decided to keep, and who owns it. Re-check after a fix, and again on a schedule: a broad grant returns when a new space is given an old scheme. For the full review, with admin groups and space roles, use the <a href="/ledgerstone/jira-permission-audit-checklist/">Jira permission audit checklist</a>; for audits, see the <a href="/ledgerstone/jira-access-review-soc2-iso27001/">access review for SOC 2 and ISO 27001</a>.</p>
+
+<h2 id="ledgerstone">The same check on one page with Ledgerstone</h2>
+<p><a href="/ledgerstone/">Ledgerstone</a> is a Jira Cloud app that runs these checks for you. It reads permission schemes, shared filters and dashboards, space roles and administrative groups, and puts the result on one page. Anything public is graded <span class="sev high">High</span>, anything open to every logged-in user is <span class="sev med">Medium</span>, and an area it could not fully read says <span class="sev unk">Could not verify</span>. Each finding links to the Jira page where it is fixed. The first audit runs when you open the app, then it runs by itself every week, and a "Since last week" card lists findings that appeared or were resolved.</p>
+<ul>
+<li><strong>Read-only:</strong> built on Atlassian Forge with read scopes only, so it cannot change anything in Jira.</li>
+<li><strong>Nothing leaves Atlassian:</strong> no network calls outside Atlassian. Only counts and configuration names are kept, not people's names.</li>
+<li><strong>Free for sites up to 10 users;</strong> then $1.50 per user per month, with a 30-day free trial.</li>
+</ul>
+<p><a href="https://marketplace.atlassian.com/apps/861443927/ledgerstone-permission-audit-for-jira?hosting=cloud&amp;tab=overview">Try Ledgerstone free on the Atlassian Marketplace</a>, read <a href="/ledgerstone/guide/">how it works</a>, or <a href="/ledgerstone/support/#contact">send us a message</a>.</p>
+<div class="note">Spotted a menu that moved? <a href="/ledgerstone/support/?topic=website-feedback#contact">Tell us</a> and we will update this page.</div>
+
+</article></div></main>
+<footer data-of="the brand"><a href="https://www.monaidea.com/terms/">Terms</a> &middot; <a href="https://www.monaidea.com/privacy/">Privacy</a> &middot; <a href="https://www.monaidea.com/refunds/">Refunds</a><p>© 2026 VestaNabu LLC</p><p>Independent apps for Atlassian Cloud. Not affiliated with Atlassian.</p></footer>
+<script src="/site.js?v=6b08b9c7" defer></script>
+</body></html>
