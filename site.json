@@ -1,6 +1,6 @@
 {
-  "base": "https://atlapps.monaidea.com",
-  "notes": ["Independent apps for Atlassian Cloud. Not affiliated with Atlassian."],
+  "base": "https://mapstoneapps.com",
+  "notes": ["Independent apps and workbooks for Atlassian Cloud. Not affiliated with Atlassian.", "Atlassian, Jira and Confluence are trademarks of Atlassian."],
   "private": ["tools"],
   "sections": {
     "ledgerstone": {
@@ -12,6 +12,11 @@
       "name": "Flagstone",
       "mark": ["M9 28V5", "M9 6c2.6-1.6 5.4-1.6 8 0s5.4 1.6 8 0v11c-2.6 1.6-5.4 1.6-8 0s-5.4-1.6-8 0"],
       "pages": [["Overview", "/flagstone/"], ["Guide", "/flagstone/guide/"], ["Support", "/flagstone/support/"], ["Privacy", "/flagstone/privacy/"], ["Security", "/flagstone/security/"]]
+    },
+    "adminkits": {
+      "name": "Admin Kits",
+      "mark": ["M11 6H8v22h16V6h-3", "M11 4h10v4H11Z", "M12 17l3 3 6-6"],
+      "pages": [["Overview", "/adminkits/"], ["Jira permission audit", "/adminkits/jira-permission-audit/"]]
     }
   }
 }

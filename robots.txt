@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://atlapps.monaidea.com/sitemap.xml
+Sitemap: https://mapstoneapps.com/sitemap.xml
