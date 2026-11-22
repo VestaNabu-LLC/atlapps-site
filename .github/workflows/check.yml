@@ -1,10 +1,10 @@
 # Checks every push to main and every pull request; it publishes nothing.
 # GitHub Pages serves the main branch of this repository as it is (Settings >
 # Pages > Deploy from a branch), so the finished pages are committed. This
-# check fails when the files here are not what the stamper of the Monaidea
-# brand (repository VestaNabu-LLC/monaidea, folder brand/) writes from pages/:
-# then run `node ../monaidea/brand/stamp.mjs .` and commit what it wrote. Its
-# log lists every file that differs and every reason a page is refused.
+# check fails when the files here are not what this repository's stamper
+# (brand/stamp.mjs) writes from pages/: then run `node brand/stamp.mjs .` and
+# commit what it wrote. Its log lists every file that differs and every reason
+# a page is refused.
 name: check
 on:
   push:
@@ -17,9 +17,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/checkout@v7.0.1
-        with:
-          repository: VestaNabu-LLC/monaidea
-          path: _brand
       - run: node --version
-      - run: node _brand/brand/stamp.mjs . --check
+      - run: node brand/stamp.mjs . --check

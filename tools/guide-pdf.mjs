@@ -2,7 +2,7 @@
 // own fonts. Needs Playwright with Chromium (Claude's cloud sessions have it).
 // Run it from the repository's root, after the stamper:
 //
-//   node ../monaidea/brand/stamp.mjs .
+//   node brand/stamp.mjs .
 //   node tools/guide-pdf.mjs
 //
 // It writes ledgerstone/guide/Ledgerstone-Guide.pdf, the file the guide links

@@ -4,8 +4,8 @@ The pages of Monaidea's Atlassian apps and of Admin Kits: `/` lists them, each
 app's own pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`) and Admin
 Kits' under `/adminkits/`. Rules for anyone changing it: `CLAUDE.md`.
 
-A page under `pages/` holds content only. The stamper of the Monaidea brand
-(repository `VestaNabu-LLC/monaidea`, folder `brand/`) writes the finished page
+A page under `pages/` holds content only. The stamper (`brand/stamp.mjs`, from a copy
+of the Monaidea brand taken on 2026-11-22, Mapstone's own since) writes the finished page
 from it into this repository, at the page's path: it adds the stylesheet,
 fonts, header, footer and scripts, checks every link inside the site, and
 writes nothing if one page breaks a rule. The finished pages are committed, and
@@ -14,9 +14,8 @@ at the paths they are published at (`ledgerstone/media/…`). A check on every
 push fails when the committed files are not what the stamper writes.
 
 ```sh
-git clone --depth 1 https://github.com/VestaNabu-LLC/monaidea ../monaidea   # once; later: git -C ../monaidea pull
-node ../monaidea/brand/stamp.mjs .            # then commit what it wrote
-node ../monaidea/brand/stamp.mjs . --check
+node brand/stamp.mjs .            # then commit what it wrote
+node brand/stamp.mjs . --check
 ```
 
 Until 2026-11-15 the two apps had a site each, `ledgerstone.monaidea.com`

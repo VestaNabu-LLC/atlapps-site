@@ -7,8 +7,10 @@ Jira admins (until 2026-11-22 at adminkits.monaidea.com, which forwards to
 (`/ledgerstone/`, `/flagstone/`), Admin Kits' under `/adminkits/`.
 The business rules of the apps are in `CLAUDE.md` of `VestaNabu-LLC/ledgerstone`
 (it wins business-wide) and of `VestaNabu-LLC/flagstone`; they bind here too.
-Decisions about the brand and the sites live in the owner's claude.ai Project
-"StandAloneHarnessed" (`claude/decision-log.md` and its addenda).
+Decisions about the sites live in the owner's claude.ai Project
+"StandAloneHarnessed" (`claude/decision-log.md` and its addenda). Since
+2026-11-22 Mapstone has its own look, header and footer (`brand/`, a copy of
+the Monaidea brand taken that day): Monaidea's changes no longer reach it.
 
 ## Who writes what
 
@@ -18,7 +20,7 @@ Decisions about the brand and the sites live in the owner's claude.ai Project
 | An app's pictures, videos and PDF | the same | `<app>/media/`, `<app>/guide/…`: the paths they are published at |
 | The family page `/` and the 404 page | the owner's Project | `pages/index.html`, `pages/404.html` |
 | Admin Kits' pages and pictures | the owner's Project | `pages/adminkits/`, `adminkits/…` |
-| The look, the header, the footer, the fonts, the scripts | the owner's Project | repo `VestaNabu-LLC/monaidea`, folder `brand/`. **Never by hand here** |
+| The look, the header and footer (`brand/frame.txt`), the fonts, the scripts, the stamper | whoever the owner names to run mapstoneapps.com | `brand/` here. Never in a finished file |
 | The finished pages, `style.css`, `site.js`, `contact.js`, `fonts/`, `sitemap.xml`, `robots.txt`, `_config.yml` | the stamper, and nobody else | every `.html` outside `pages/`, and those files at the root |
 | An app's bar (its name, its mark, its pages) and the footer note | whoever adds a page or an app | `site.json` |
 
@@ -28,12 +30,12 @@ Decisions about the brand and the sites live in the owner's claude.ai Project
 <title>What the page is</title>
 <meta name="description" content="One or two sentences.">
 <main>
-  …the content, with the classes of the brand's stylesheet (monaidea: brand/css/site.css)…
+  …the content, with the classes of `brand/css/site.css`…
 </main>
 ```
 
-Nothing else. The stamper (`brand/stamp.mjs` in `monaidea`; the exact rules are
-at the top of that file) writes the finished page from it, at the same path
+Nothing else. The stamper (`brand/stamp.mjs`; the exact rules are at the top of
+that file) writes the finished page from it, at the same path
 outside `pages/` (`pages/ledgerstone/guide/index.html` becomes
 `ledgerstone/guide/index.html`), adding the stylesheet, the fonts, the header
 and footer, the scripts, the page's address and its icon. It **writes nothing**
@@ -45,8 +47,7 @@ nowhere (the page, the file, or the `id` after a `#`).
 **GitHub Pages serves `main` as it is: what is committed is what is live.** So:
 
 1. Edit the page under `pages/` (never the finished one).
-2. `git -C ../monaidea pull`, then `node ../monaidea/brand/stamp.mjs .` (clone
-   `monaidea` next to this repo once).
+2. `node brand/stamp.mjs .`
 3. Commit the source and what the stamper wrote, together, and push.
 4. Check the run: `gh run list -R VestaNabu-LLC/mapstoneapps-site -L 1`. A red check
    means the committed files are not what the stamper writes (a page edited by
@@ -56,8 +57,7 @@ nowhere (the page, the file, or the `id` after a `#`).
    look right... we can fix it").
 
 - **Never work around a refusal.** Fix the page. If a page needs a look the
-  brand does not have, ask in the owner's Project: it goes into the brand
-  first, then every site has it.
+  brand does not have, add it to `brand/css/site.css` first, then use it.
 - Links inside the site are written from the root: `/ledgerstone/guide/`, never
   `guide/` or `https://mapstoneapps.com/…`.
 - `pages/` holds pages only. A picture, a video or a PDF goes at the path it is
