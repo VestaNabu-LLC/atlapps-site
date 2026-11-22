@@ -1,8 +1,8 @@
 # mapstoneapps.com
 
-The pages of Monaidea's Atlassian apps: `/` lists them, and each app's own
-pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`). Rules for anyone
-changing it: `CLAUDE.md`.
+The pages of Monaidea's Atlassian apps and of Admin Kits: `/` lists them, each
+app's own pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`) and Admin
+Kits' under `/adminkits/`. Rules for anyone changing it: `CLAUDE.md`.
 
 A page under `pages/` holds content only. The stamper of the Monaidea brand
 (repository `VestaNabu-LLC/monaidea`, folder `brand/`) writes the finished page
@@ -25,4 +25,7 @@ then, until 2026-11-22, this site was at `atlapps.monaidea.com`. Every page
 kept its path: `https://ledgerstone.monaidea.com/guide/` and
 `https://atlapps.monaidea.com/ledgerstone/guide/` are now
 `https://mapstoneapps.com/ledgerstone/guide/`, and the old addresses forward
-there (the owner's Cloudflare rules, in monaidea.com's account).
+there (the owner's Cloudflare rules, in monaidea.com's account). Admin Kits
+was at `adminkits.monaidea.com` (repository `adminkits-site`) until 2026-11-22:
+`https://adminkits.monaidea.com/jira-permission-audit/` is now
+`https://mapstoneapps.com/adminkits/jira-permission-audit/`.
