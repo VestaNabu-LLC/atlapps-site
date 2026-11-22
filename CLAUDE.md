@@ -1,6 +1,7 @@
 # Read this first (every Claude session in this repo)
 
-**atlapps.monaidea.com**: the pages of Monaidea's Atlassian apps. `/` lists the
+**mapstoneapps.com** (until 2026-11-22 atlapps.monaidea.com, which forwards
+here): the pages of Monaidea's Atlassian apps. `/` lists the
 apps; each app's own pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`).
 The business rules of the apps are in `CLAUDE.md` of `VestaNabu-LLC/ledgerstone`
 (it wins business-wide) and of `VestaNabu-LLC/flagstone`; they bind here too.
@@ -55,7 +56,7 @@ nowhere (the page, the file, or the `id` after a `#`).
   brand does not have, ask in the owner's Project: it goes into the brand
   first, then every site has it.
 - Links inside the site are written from the root: `/ledgerstone/guide/`, never
-  `guide/` or `https://atlapps.monaidea.com/…`.
+  `guide/` or `https://mapstoneapps.com/…`.
 - `pages/` holds pages only. A picture, a video or a PDF goes at the path it is
   published at, and a page links to it from the root (`/ledgerstone/media/…`).
 

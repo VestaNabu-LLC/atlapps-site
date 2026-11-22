@@ -1,4 +1,4 @@
-# atlapps.monaidea.com
+# mapstoneapps.com
 
 The pages of Monaidea's Atlassian apps: `/` lists them, and each app's own
 pages are under `/<app>/` (`/ledgerstone/`, `/flagstone/`). Rules for anyone
@@ -20,6 +20,9 @@ node ../monaidea/brand/stamp.mjs . --check
 ```
 
 Until 2026-11-15 the two apps had a site each, `ledgerstone.monaidea.com`
-(repository `ledgerstone-site`) and `flagstone.monaidea.com` (`flagstone-site`).
-Every page kept its path: `https://ledgerstone.monaidea.com/guide/` is now
-`https://atlapps.monaidea.com/ledgerstone/guide/`.
+(repository `ledgerstone-site`) and `flagstone.monaidea.com` (`flagstone-site`);
+then, until 2026-11-22, this site was at `atlapps.monaidea.com`. Every page
+kept its path: `https://ledgerstone.monaidea.com/guide/` and
+`https://atlapps.monaidea.com/ledgerstone/guide/` are now
+`https://mapstoneapps.com/ledgerstone/guide/`, and the old addresses forward
+there (the owner's Cloudflare rules, in monaidea.com's account).
