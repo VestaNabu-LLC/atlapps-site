@@ -1,0 +1,67 @@
+<title>How to see every open task across all Confluence spaces</title>
+<meta name="description" content="What Confluence Cloud shows by itself (your task list, the Task report macro), where it stops, and how to get one list of open tasks from every space.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to see every open task across all Confluence spaces">
+<meta property="og:description" content="Your own task list, the Task report macro, where they stop, and one list for every space.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to see every open task across all Confluence spaces","datePublished":"2026-11-23","dateModified":"2026-11-23","author":{"@type":"Organization","name":"Mapstone Apps"},"publisher":{"@type":"Organization","name":"Mapstone Apps","url":"https://mapstoneapps.com/"},"mainEntityOfPage":"https://mapstoneapps.com/flagstone/confluence-open-tasks-across-spaces/"}</script>
+<main>
+<header class="doc-head"><span class="eyebrow"><i></i>Confluence guide</span>
+<h1>Every open task, <span class="grad">across all spaces</span></h1>
+<p class="lede">Tasks in Confluence live inside pages: meeting notes, project plans, decision logs. After a few months there are hundreds of them in dozens of spaces, and the simple question "what is still open?" has no single answer. Here is what Confluence Cloud shows by itself, where it stops, and how to get one list.</p>
+<p class="doc-meta">Published 23 November 2026 · Confluence Cloud · A practical guide</p></header>
+
+<div class="doc">
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol>
+<li><a href="#how">How tasks work</a></li><li><a href="#mine">1. Your own task list</a></li><li><a href="#report">2. The Task report macro</a></li><li><a href="#gap">Where it stops</a></li><li><a href="#habits">Habits that help</a></li><li><a href="#flagstone">One list for every space</a></li>
+</ol></nav>
+<article>
+
+<h2 id="how">How tasks work in Confluence</h2>
+<p>A task is a checkbox on a page (an action item). Mention a person in it and it is assigned to them; add a date and it has a due date. It stays open until someone ticks it on that page. Nothing else happens: a task that is three weeks late looks the same as one created this morning, unless somebody opens the page.</p>
+<p>So the task itself is easy. Finding it again is the hard part, and Confluence gives you two tools for that.</p>
+
+<h2 id="mine">1. Your own task list</h2>
+<ul>
+<li><strong>Where:</strong> open your profile menu (your picture, top right) and choose <strong>Tasks</strong>.</li>
+<li><strong>What it shows:</strong> the tasks assigned to you and the tasks you created, open or completed, from the pages you can see.</li>
+<li><strong>Good for:</strong> your own work. It does not answer a lead's questions: what is open in my team, who is overloaded, which tasks belong to nobody.</li>
+</ul>
+
+<h2 id="report">2. The Task report macro</h2>
+<ul>
+<li><strong>Where:</strong> edit a page, type <strong>/task report</strong> and insert the macro.</li>
+<li><strong>What it shows:</strong> a list of tasks from the spaces and pages you choose in its settings, narrowed by who has them and whether they are complete.</li>
+<li><strong>Good for:</strong> a team page or a project home page that lists that team's or that project's open tasks.</li>
+</ul>
+<p>A report is only as wide as the spaces and pages it was set up with. A new space is not in it until someone edits the macro.</p>
+
+<h2 id="gap">Where it stops</h2>
+<p>The Task report macro does not pull tasks from every space of a site. Atlassian tracks the request to make it do so in its public ticket <a href="https://jira.atlassian.com/browse/CONFCLOUD-71390">CONFCLOUD-71390</a>. Until then, three questions stay hard to answer:</p>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Question</th><th>By hand</th></tr></thead>
+<tbody>
+<tr><td>What is open across all our spaces?</td><td>One report per group of spaces, kept up to date as spaces are added</td></tr>
+<tr><td>What is overdue, and whose is it?</td><td>Read each report and compare the dates yourself</td></tr>
+<tr><td>Which tasks have no assignee?</td><td>Easy to miss: nobody's task list shows them</td></tr>
+</tbody></table></div>
+
+<h2 id="habits">Habits that help</h2>
+<ul>
+<li><strong>Always mention a person.</strong> A task without an assignee appears in nobody's list.</li>
+<li><strong>Always add a date.</strong> Without one, a task can never be late, so it never gets attention.</li>
+<li><strong>One report per team page.</strong> Put a Task report on each team's home page and check its spaces when a new space is created.</li>
+<li><strong>Close the loop in the next meeting.</strong> Start from the last meeting's notes and tick or reassign what is there.</li>
+</ul>
+
+<h2 id="flagstone">One list for every space with Flagstone</h2>
+<p><a href="/flagstone/">Flagstone</a> is a Confluence Cloud app that gathers the open tasks from every space you can see. <strong>My work</strong> groups your tasks into Overdue, Due today, Next 7 days, Later and No due date, for tasks assigned to you or created by you. <strong>All tasks</strong> lists every open task you can see, overdue first, with a space filter. <strong>Team</strong> counts open, overdue and due-this-week tasks per person, with a "Nobody assigned" row for the tasks without an assignee. A badge under each page's title counts that page's open tasks, and the <strong>Flagstone report</strong> macro puts a live list on a team page or in meeting notes, for all spaces or the ones you pick.</p>
+<ul>
+<li><strong>Read-only:</strong> built on Atlassian Forge with read scopes only. It cannot tick a task or resolve a comment; every row links to Confluence, where you do that as usual.</li>
+<li><strong>Your permissions:</strong> everything is read live as the person looking, so nobody sees a task or comment on a page Confluence would hide from them.</li>
+<li><strong>Nothing leaves Atlassian:</strong> no outside servers ("Runs on Atlassian"). For the same reason it sends no email or Slack reminders. It stores counts per space only, never task or comment text, page titles or people.</li>
+<li><strong>Free for sites up to 10 users;</strong> then $1.50 per user per month, with a 30-day free trial.</li>
+</ul>
+<p><a href="https://marketplace.atlassian.com/plugins/com.vestanabu.flagstone/cloud/overview">Try Flagstone free on the Atlassian Marketplace</a>, read <a href="/flagstone/guide/">how it works</a>, or <a href="/flagstone/support/#contact">send us a message</a>.</p>
+<div class="note">Spotted a menu that moved, or something we got wrong? <a href="/flagstone/support/#contact">Tell us</a> and we will update this page.</div>
+
+</article></div></main>

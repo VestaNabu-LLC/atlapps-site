@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mapstoneapps.com/adminkits/</loc></url>
   <url><loc>https://mapstoneapps.com/adminkits/jira-permission-audit/</loc></url>
+  <url><loc>https://mapstoneapps.com/flagstone/confluence-open-tasks-across-spaces/</loc></url>
+  <url><loc>https://mapstoneapps.com/flagstone/confluence-unresolved-inline-comments/</loc></url>
   <url><loc>https://mapstoneapps.com/flagstone/guide/</loc></url>
   <url><loc>https://mapstoneapps.com/flagstone/</loc></url>
   <url><loc>https://mapstoneapps.com/flagstone/privacy/</loc></url>
@@ -16,6 +18,7 @@
   <url><loc>https://mapstoneapps.com/ledgerstone/privacy/</loc></url>
   <url><loc>https://mapstoneapps.com/ledgerstone/security/</loc></url>
   <url><loc>https://mapstoneapps.com/ledgerstone/support/</loc></url>
+  <url><loc>https://mapstoneapps.com/ledgerstone/who-has-access-to-a-jira-space/</loc></url>
   <url><loc>https://mapstoneapps.com/privacy/</loc></url>
   <url><loc>https://mapstoneapps.com/refunds/</loc></url>
   <url><loc>https://mapstoneapps.com/terms/</loc></url>

@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to find every unresolved inline comment in Confluence</title><meta name="description" content="Inline comments stay open on the page where they were written. What Confluence Cloud shows by itself, where it stops, and how to list every open comment."><meta name="theme-color" content="#070a12">
+<link rel="canonical" href="https://mapstoneapps.com/flagstone/confluence-unresolved-inline-comments/">
+<meta property="og:site_name" content="Mapstone Apps"><meta property="og:type" content="article"><meta property="og:title" content="How to find every unresolved inline comment in Confluence"><meta property="og:description" content="What Confluence shows by itself, where it stops, and one list of every open inline comment."><meta property="og:url" content="https://mapstoneapps.com/flagstone/confluence-unresolved-inline-comments/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%236366f1%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20transform%3D%22translate(4%204)%20scale(.75)%22%3E%3Cpath%20d%3D%22M9%2028V5%22%2F%3E%3Cpath%20d%3D%22M9%206c2.6-1.6%205.4-1.6%208%200s5.4%201.6%208%200v11c-2.6%201.6-5.4%201.6-8%200s-5.4-1.6-8%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<link rel="stylesheet" href="/style.css?v=0b87b627">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to find every unresolved inline comment in Confluence","datePublished":"2026-11-23","dateModified":"2026-11-23","author":{"@type":"Organization","name":"Mapstone Apps"},"publisher":{"@type":"Organization","name":"Mapstone Apps","url":"https://mapstoneapps.com/"},"mainEntityOfPage":"https://mapstoneapps.com/flagstone/confluence-unresolved-inline-comments/"}</script>
+</head><body>
+<div class="sky" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<header data-of="the brand"><nav><a class="brand" href="https://mapstoneapps.com/">Mapstone Apps</a><a href="https://mapstoneapps.com/ledgerstone/">Ledgerstone</a><a href="https://mapstoneapps.com/flagstone/" aria-current="true">Flagstone</a><a href="https://mapstoneapps.com/adminkits/">Admin Kits</a><a href="https://mapstoneapps.com/#contact">Contact</a></nav></header>
+<nav class="subnav" aria-label="Flagstone"><div class="subnav-in"><a class="subnav-name" href="/flagstone/"><span class="mark"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 28V5"/><path d="M9 6c2.6-1.6 5.4-1.6 8 0s5.4 1.6 8 0v11c-2.6 1.6-5.4 1.6-8 0s-5.4-1.6-8 0"/></svg></span>Flagstone</a><a href="/flagstone/">Overview</a><a href="/flagstone/guide/">Guide</a><a href="/flagstone/support/">Support</a><a href="/flagstone/privacy/">Privacy</a><a href="/flagstone/security/">Security</a></div></nav>
+<main>
+<header class="doc-head"><span class="eyebrow"><i></i>Confluence guide</span>
+<h1>Every <span class="grad">unresolved inline comment</span></h1>
+<p class="lede">An inline comment is a question pinned to a sentence: "is this still accurate?", "who decides this?". It stays open until someone resolves it, on that page only. Across a site, open comments pile up where nobody looks. Here is what Confluence Cloud shows by itself, where it stops, and how to list them all.</p>
+<p class="doc-meta">Published 23 November 2026 · Confluence Cloud · A practical guide</p></header>
+
+<div class="doc">
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol>
+<li><a href="#how">How inline comments work</a></li><li><a href="#page">What you can see on one page</a></li><li><a href="#gap">Where it stops</a></li><li><a href="#matter">Why open comments matter</a></li><li><a href="#habits">Habits that help</a></li><li><a href="#flagstone">One list for every space</a></li>
+</ol></nav>
+<article>
+
+<h2 id="how">How inline comments work</h2>
+<p>Select text on a page and choose to comment: the text is highlighted and the comment opens beside it. People reply in the same thread. When the question is answered, someone clicks <strong>Resolve</strong>; the highlight goes away and the thread is kept with the page's resolved comments. A resolved comment can be reopened.</p>
+<p>Until then the comment is unresolved: an open question about a specific sentence.</p>
+
+<h2 id="page">What you can see on one page</h2>
+<ul>
+<li><strong>Open comments:</strong> the highlights on the page. Click one to read the thread.</li>
+<li><strong>Resolved comments:</strong> in the page's menu (the three dots), under <strong>Resolved comments</strong>.</li>
+<li><strong>Notifications:</strong> the page's author and watchers hear about a new comment once, when it is written. Nothing reminds anyone that it is still open a month later.</li>
+</ul>
+
+<h2 id="gap">Where it stops</h2>
+<p>All of that is per page. Confluence has no view of all unresolved inline comments across pages or spaces. Atlassian tracks the request in its public ticket <a href="https://jira.atlassian.com/browse/CONFCLOUD-34510">CONFCLOUD-34510</a>. So these questions have no built-in answer:</p>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Question</th><th>By hand</th></tr></thead>
+<tbody>
+<tr><td>Which comments on my pages are still open?</td><td>Open each page you wrote and look for highlights</td></tr>
+<tr><td>Which comments has nobody answered for a month?</td><td>Open each thread and read its date</td></tr>
+<tr><td>How many open comments does a space have?</td><td>Page by page</td></tr>
+</tbody></table></div>
+
+<h2 id="matter">Why open comments matter</h2>
+<p>An unresolved comment on a policy, a runbook or a specification means a reader doubted the text and nobody confirmed or corrected it. The next reader sees the same sentence without the doubt, or sees the highlight and stops trusting the page. Either way the page is worth less than it looks. Old open comments are also the cheapest review you will ever get: somebody already found the weak spot for you.</p>
+
+<h2 id="habits">Habits that help</h2>
+<ul>
+<li><strong>The page's author resolves.</strong> Agree that whoever owns the page answers and resolves each comment, so every comment has an owner.</li>
+<li><strong>Resolve when you answer.</strong> A reply without Resolve leaves the comment open forever.</li>
+<li><strong>Review before you publish again.</strong> When you update a page, walk through its highlights first.</li>
+<li><strong>Sweep the important spaces.</strong> Once a quarter, open the pages people rely on most and clear what is open.</li>
+</ul>
+
+<h2 id="flagstone">One list for every space with Flagstone</h2>
+<p><a href="/flagstone/">Flagstone</a> is a Confluence Cloud app with a <strong>Comments</strong> view: the unresolved inline comments from every space you can see, grouped by page, oldest first. Each shows its text, the words it is about and its author, with an age label: New under 7 days, Waiting 7 to 30 days, Stale over 30 days. Filter by space, by <strong>On pages I created</strong> or by <strong>Stale only</strong>; one click opens the comment on its page. A badge under each page's title counts that page's unresolved comments, the <strong>Flagstone report</strong> macro puts a live list on a team page, and Confluence admins see unresolved comments per space and by age. The same hub lists <a href="/flagstone/confluence-open-tasks-across-spaces/">every open task across all spaces</a>.</p>
+<ul>
+<li><strong>Read-only:</strong> built on Atlassian Forge with read scopes only. It cannot tick a task or resolve a comment; every row links to Confluence, where you do that as usual.</li>
+<li><strong>Your permissions:</strong> everything is read live as the person looking, so nobody sees a task or comment on a page Confluence would hide from them.</li>
+<li><strong>Nothing leaves Atlassian:</strong> no outside servers ("Runs on Atlassian"). For the same reason it sends no email or Slack reminders. It stores counts per space only, never task or comment text, page titles or people.</li>
+<li><strong>Free for sites up to 10 users;</strong> then $1.50 per user per month, with a 30-day free trial.</li>
+</ul>
+<p><a href="https://marketplace.atlassian.com/plugins/com.vestanabu.flagstone/cloud/overview">Try Flagstone free on the Atlassian Marketplace</a>, read <a href="/flagstone/guide/">how it works</a>, or <a href="/flagstone/support/#contact">send us a message</a>.</p>
+<div class="note">Spotted a menu that moved, or something we got wrong? <a href="/flagstone/support/#contact">Tell us</a> and we will update this page.</div>
+
+</article></div></main>
+<footer data-of="the brand"><a href="https://mapstoneapps.com/terms/">Terms</a> &middot; <a href="https://mapstoneapps.com/privacy/">Privacy</a> &middot; <a href="https://mapstoneapps.com/refunds/">Refunds</a><p>© 2026 VestaNabu LLC</p><p>Independent apps and workbooks for Atlassian Cloud. Not affiliated with Atlassian.</p><p>Atlassian, Jira and Confluence are trademarks of Atlassian.</p></footer>
+<script src="/site.js?v=6b08b9c7" defer></script>
+</body></html>

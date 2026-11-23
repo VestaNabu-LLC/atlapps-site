@@ -1,0 +1,66 @@
+<title>Who has access to a Jira space? How to answer it in Jira Cloud</title>
+<meta name="description" content="Follow the chain by hand: the space's permission scheme, its roles, and the groups behind them. Why it gets slow across many spaces, and how to see it on one page.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Who has access to a Jira space? How to answer it in Jira Cloud">
+<meta property="og:description" content="The permission scheme, the roles and the groups behind them: how to answer it for one space, and for many.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Who has access to a Jira space? How to answer it in Jira Cloud","datePublished":"2026-11-23","dateModified":"2026-11-23","author":{"@type":"Organization","name":"Mapstone Apps"},"publisher":{"@type":"Organization","name":"Mapstone Apps","url":"https://mapstoneapps.com/"},"mainEntityOfPage":"https://mapstoneapps.com/ledgerstone/who-has-access-to-a-jira-space/"}</script>
+<main>
+<header class="doc-head"><span class="eyebrow"><i></i>Security guide</span>
+<h1>Who has access to <span class="grad">a Jira space?</span></h1>
+<p class="lede">Someone asks who can see a space, or who can administer it, and you need a real answer, not a guess. In Jira Cloud the answer is spread over three places: the space's permission scheme, the space's roles, and the groups behind those roles. Here is how to follow the chain by hand for one space, and why it gets slow for many.</p>
+<p class="doc-meta">Published 23 November 2026 · Jira Cloud · A practical guide, not legal advice</p></header>
+
+<div class="doc">
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol>
+<li><a href="#short">The short version</a></li><li><a href="#scheme">1. The permission scheme</a></li><li><a href="#roles">2. The space's roles</a></li><li><a href="#groups">3. The groups behind the roles</a></li><li><a href="#answer">Putting the answer together</a></li><li><a href="#many">Why it is slow across many spaces</a></li><li><a href="#ledgerstone">The same check on one page</a></li>
+</ol></nav>
+<article>
+
+<h2 id="short">The short version</h2>
+<ul>
+<li><strong>Who can see the space?</strong> Whoever holds the browse permission in the space's permission scheme.</li>
+<li><strong>Who can administer it?</strong> Whoever holds the permission to administer the space in that scheme.</li>
+</ul>
+<p>Each permission is granted to a space role, a group, a single user, or something broad such as <strong>Any logged in user</strong>. Roles and groups then contain the actual people. So you follow the chain: scheme, then role, then group, then members.</p>
+<div class="note"><strong>Names changed.</strong> Jira Cloud now calls projects <strong>spaces</strong> and issues <strong>work items</strong>. This guide uses the new names. If a menu path below does not match your screen, use the search box in Jira settings.</div>
+
+<h2 id="scheme">1. Find the space's permission scheme</h2>
+<ul>
+<li>Go to Settings (the gear icon) → Work items → Permission schemes. Each scheme lists the spaces that use it. Find yours and open that scheme.</li>
+<li>Find the browse permission and the permission to administer the space. Write down every holder: a space role, a group, a single user, <strong>Any logged in user</strong> or <strong>Public</strong>.</li>
+</ul>
+<p>If a holder is <strong>Public</strong>, the space can be read without logging in (more in <a href="/ledgerstone/jira-anonymous-access/">Jira anonymous access</a>). If it is <strong>Any logged in user</strong>, everyone who can log in to your site can read it. Both can be right, but you should know about them.</p>
+
+<h2 id="roles">2. Read the space's roles</h2>
+<p>Most schemes grant permissions to roles, so the scheme alone does not tell you who has access.</p>
+<ul>
+<li>Open the space, then Space settings and its people page (<strong>People</strong> in company-managed spaces, <strong>Access</strong> in team-managed ones). Each role shows the people and groups in it for this space.</li>
+<li>Compare with the defaults at Settings → System → Space roles (formerly project roles). A space can differ from the default, and that difference is where surprises hide.</li>
+</ul>
+<p>Note the role that holds the browse permission and the role that administers the space, and write down each person and each group inside them.</p>
+
+<h2 id="groups">3. Open the groups behind the roles</h2>
+<p>A group in a role is a name, not a list of people. To see who is in it:</p>
+<ul>
+<li>In Atlassian Administration (admin.atlassian.com), open Directory → Groups, open the group and read its members.</li>
+<li>Look for accounts that are deactivated or suspended, and for groups far larger than you expected. A group that holds the whole company, placed in an administrator role, quietly makes everyone an administrator of the space.</li>
+</ul>
+<p>Repeat for every group you wrote down, from the scheme and from the roles.</p>
+
+<h2 id="answer">Putting the answer together</h2>
+<p>For one space, your answer is a short list: the scheme it uses, who holds the browse permission, who administers it, which roles and groups lead there, and the members of those groups. Write down the date and who checked it. If you review access on a schedule, that note is your evidence next time (see the <a href="/ledgerstone/jira-access-review-soc2-iso27001/">access review for SOC 2 and ISO 27001</a>).</p>
+
+<h2 id="many">Why this is slow across many spaces</h2>
+<p>The steps are simple, but the work multiplies. Each space can use a different scheme, each scheme has many permissions, each space has its own role members, and each group has its own member list in a different place. For a site with dozens or hundreds of spaces you repeat the same three screens many times, and by the time you finish, the first ones may have changed. Most teams end up checking only a few spaces, or only when something goes wrong. The <a href="/ledgerstone/jira-permission-audit-checklist/">Jira permission audit checklist</a> covers the whole site in six checks.</p>
+
+<h2 id="ledgerstone">The same check on one page with Ledgerstone</h2>
+<p><a href="/ledgerstone/">Ledgerstone</a> is a Jira Cloud app that reads permission schemes, space roles and administrative groups across your site and puts the result on one page. It shows who holds each role by default and in each space, and lists administrative groups with their size and inactive accounts. Anything public is graded <span class="sev high">High</span>, anything open to every logged-in user is <span class="sev med">Medium</span>, and an area it could not fully read says <span class="sev unk">Could not verify</span>. Each finding links to the Jira page where it is fixed. The first audit runs when you open the app, then it runs by itself every week.</p>
+<ul>
+<li><strong>Read-only:</strong> built on Atlassian Forge with read scopes only, so it cannot change anything in Jira.</li>
+<li><strong>Nothing leaves Atlassian:</strong> no network calls outside Atlassian. Only counts and configuration names are kept, not people's names.</li>
+<li><strong>Free for sites up to 10 users;</strong> then $1.50 per user per month, with a 30-day free trial.</li>
+</ul>
+<p><a href="https://marketplace.atlassian.com/apps/861443927/ledgerstone-permission-audit-for-jira?hosting=cloud&amp;tab=overview">Try Ledgerstone free on the Atlassian Marketplace</a>, read <a href="/ledgerstone/guide/">how it works</a>, or <a href="/ledgerstone/support/#contact">send us a message</a>.</p>
+<div class="note">Spotted a menu that moved? <a href="/ledgerstone/support/?topic=website-feedback#contact">Tell us</a> and we will update this page.</div>
+
+</article></div></main>
