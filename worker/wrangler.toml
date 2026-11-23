@@ -1,0 +1,14 @@
+# The Worker "mapstoneapps-contact" in the Mapstone Apps Cloudflare account (owner, 2026-11-23): the
+# contact form's endpoint at https://forms.mapstoneapps.com. This file records its settings and allows
+# `npx wrangler deploy` from worker/ when logged in to that account; the dashboard works too.
+# Secrets, set in the dashboard (Settings > Variables and Secrets) or with `wrangler secret put`, never here:
+#   TURNSTILE_SECRET       secret key of the Mapstone Apps Turnstile widget
+#   POSTMARK_SERVER_TOKEN  Postmark server API token
+# Optional plain variables: FROM_EMAIL (default noreply@mapstoneapps.com), TO_EMAIL (default support@mapstoneapps.com).
+name = "mapstoneapps-contact"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[[routes]]
+pattern = "forms.mapstoneapps.com"
+custom_domain = true

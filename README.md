@@ -19,3 +19,16 @@ node --test brand/stamp.test.mjs
 node brand/stamp.mjs .            # then commit what it wrote
 node brand/stamp.mjs . --check
 ```
+
+## Contact form
+
+The form on `/` and on each app's support page posts to the Worker
+`mapstoneapps-contact` at https://forms.mapstoneapps.com (source, tests and
+settings in `worker/`; `GET https://forms.mapstoneapps.com/` shows whether its
+two secrets are set). It checks Cloudflare Turnstile (site key `SITEKEY` in
+`brand/contact.js`) and emails the message from noreply@mapstoneapps.com to
+support@mapstoneapps.com through Postmark.
+
+```sh
+node --test worker/test/index.test.mjs
+```

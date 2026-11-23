@@ -19,6 +19,7 @@ Decisions about the brand and the sites live in the owner's claude.ai Project
 | The family page `/` and the 404 page | the owner's Project | `pages/index.html`, `pages/404.html` |
 | Admin Kits' pages and pictures | the owner's Project | `pages/adminkits/`, `adminkits/…` |
 | The look, the header, the footer, the fonts, the scripts, the stamper | the owner's Project | `brand/` here (`frame.txt` is the header and footer). Never in a finished file |
+| The contact form's Worker (`mapstoneapps-contact`, https://forms.mapstoneapps.com) | the owner deploys it in the Mapstone Apps Cloudflare account | `worker/` here, never published |
 | The finished pages, `style.css`, `site.js`, `contact.js`, `fonts/`, `sitemap.xml`, `robots.txt`, `_config.yml` | the stamper, and nobody else | every `.html` outside `pages/`, and those files at the root |
 | An app's bar (its name, its mark, its pages) and the footer note | whoever adds a page or an app | `site.json` |
 

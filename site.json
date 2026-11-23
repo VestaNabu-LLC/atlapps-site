@@ -1,7 +1,7 @@
 {
   "base": "https://mapstoneapps.com",
   "notes": ["Independent apps and workbooks for Atlassian Cloud. Not affiliated with Atlassian.", "Atlassian, Jira and Confluence are trademarks of Atlassian."],
-  "private": ["tools"],
+  "private": ["tools", "worker"],
   "sections": {
     "ledgerstone": {
       "name": "Ledgerstone",
