@@ -1,10 +1,10 @@
 # Checks every push to main and every pull request; it publishes nothing.
 # GitHub Pages serves the main branch of this repository as it is (Settings >
 # Pages > Deploy from a branch), so the finished pages are committed. This
-# check fails when the files here are not what this repository's stamper
-# (brand/stamp.mjs) writes from pages/: then run `node brand/stamp.mjs .` and
-# commit what it wrote. Its log lists every file that differs and every reason
-# a page is refused.
+# check fails when the stamper's tests fail, or when the files here are not
+# what the stamper (brand/stamp.mjs, in this repository) writes from pages/:
+# then run `node brand/stamp.mjs .` and commit what it wrote. Its log lists
+# every file that differs and every reason a page is refused.
 name: check
 on:
   push:
@@ -18,4 +18,5 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - run: node --version
+      - run: node --test brand/stamp.test.mjs
       - run: node brand/stamp.mjs . --check

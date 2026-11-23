@@ -52,7 +52,7 @@ try {
     margin: { top: '16mm', bottom: '16mm', left: '14mm', right: '14mm' },
     displayHeaderFooter: true,
     headerTemplate: '<span></span>',
-    footerTemplate: `<div style="font:8px Inter,sans-serif;color:#6b7280;width:100%;padding:0 14mm;display:flex;justify-content:space-between"><span>Ledgerstone guide · mapstoneapps.com${PAGE}</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`,
+    footerTemplate: `<div style="font:8px Inter,sans-serif;color:#6b7280;width:100%;padding:0 14mm;display:flex;justify-content:space-between"><span>Ledgerstone guide · ${new URL(BASE).host}${PAGE}</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`,
   });
   console.log(`${out}: written, ${await page.evaluate(() => document.images.length)} pictures`);
 } finally {

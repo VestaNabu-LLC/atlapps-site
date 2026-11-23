@@ -156,7 +156,7 @@ figure.shot figcaption{background:var(--bg2);color:var(--dim);font-size:13px;pad
 .card .chips{margin:14px 0 0}
 .kit{display:block;text-decoration:none}
 .kit .more{display:inline-block;margin-top:14px}
-/* the way back, above a page's title: where the page sits (Shops › Admin Kits › this page) */
+/* the way back, above a page's title: where the page sits (Mapstone Apps › Admin Kits › this page) */
 .crumbs{margin:0 0 20px;color:var(--dim);font-size:14px}
 .crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--fg)}
 .stack{display:grid;gap:18px}

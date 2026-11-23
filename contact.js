@@ -1,15 +1,14 @@
-// Contact form (2026-11-02). One file for every Monaidea site: the stamper (brand/stamp.mjs) puts it
-// on each page that has <form id="contact-form">. It sends the message to Monaidea's contact Worker on
-// Cloudflare (https://forms.monaidea.com, source in this repo's worker/), which checks Cloudflare
-// Turnstile and emails it to support@monaidea.com through Postmark. Turnstile loads only once someone
+// Contact form. The stamper (brand/stamp.mjs) puts it on each page that has <form id="contact-form">.
+// It sends the message to the contact Worker on Cloudflare (WORKER_URL; it accepts
+// https://mapstoneapps.com), which checks Cloudflare Turnstile and emails it through Postmark. Turnstile loads only once someone
 // starts using the form. Optional: data-product="Ledgerstone" on the form puts the product in the
 // topic, and ?topic=early-access in the page address picks the topic whose text is "Early access".
 (() => {
   const form = document.getElementById('contact-form');
   if (!form) return;
-  const WORKER_URL = 'https://forms.monaidea.com';
-  const SITEKEY = '0x4AAAAAAFxf8Y0qokk1C-_6'; // site key of Monaidea's Turnstile widget (public; owner, 2026-11-02)
-  const EMAIL = 'support@monaidea.com';
+  const WORKER_URL = 'https://forms.mapstoneapps.com';
+  const SITEKEY = '0x4AAAAAAFxf8Y0qokk1C-_6'; // site key of the Turnstile widget (public; owner, 2026-11-02)
+  const EMAIL = 'support@mapstoneapps.com';
   const box = form.querySelector('.ts');
   const status = form.querySelector('.form-status');
   const button = form.querySelector('button[type="submit"]');
@@ -31,9 +30,9 @@
     if (loading) return loading;
     if (!SITEKEY) { broken = true; settle(''); return (loading = Promise.resolve()); }
     loading = new Promise((resolve, reject) => {
-      window.monaideaTurnstileReady = resolve;
+      window.mapstoneTurnstileReady = resolve;
       const s = document.createElement('script');
-      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=monaideaTurnstileReady';
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=mapstoneTurnstileReady';
       s.async = true;
       s.onerror = reject;
       document.head.appendChild(s);

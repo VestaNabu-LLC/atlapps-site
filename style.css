@@ -1,7 +1,6 @@
 /* Space Grotesk, Inter and JetBrains Mono (SIL Open Font License 1.1, the
    licences are next to the files). We serve them ourselves: no page asks
-   another company for a font. The platform's pages cannot ask another host
-   for anything, so the stamper puts the first one inside their stylesheet. */
+   another company for a font. */
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format("woff2")}
 @font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter.woff2) format("woff2")}
 @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono.woff2) format("woff2")}
@@ -16,9 +15,8 @@
 --r:18px;--display:"Space Grotesk",system-ui,sans-serif;
 --body:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-/* The header and the footer. Their markup is the same on every page of every
-   site: the stamper writes it for the hand-built pages and the platform writes
-   it for its own, both from brand/frame.txt. */
+/* The header and the footer. Their markup is the same on every page: the
+   stamper writes it from brand/frame.txt. */
 header[data-of]{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);background:rgba(7,10,18,.6);border-bottom:1px solid var(--line)}
 header[data-of] nav{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;padding:14px 20px}
 header[data-of] a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;border:0;transition:color .2s}
@@ -189,7 +187,7 @@ figure.shot figcaption{background:var(--bg2);color:var(--dim);font-size:13px;pad
 .card .chips{margin:14px 0 0}
 .kit{display:block;text-decoration:none}
 .kit .more{display:inline-block;margin-top:14px}
-/* the way back, above a page's title: where the page sits (Shops › Admin Kits › this page) */
+/* the way back, above a page's title: where the page sits (Mapstone Apps › Admin Kits › this page) */
 .crumbs{margin:0 0 20px;color:var(--dim);font-size:14px}
 .crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--fg)}
 .stack{display:grid;gap:18px}

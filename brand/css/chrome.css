@@ -1,6 +1,5 @@
-/* The header and the footer. Their markup is the same on every page of every
-   site: the stamper writes it for the hand-built pages and the platform writes
-   it for its own, both from brand/frame.txt. */
+/* The header and the footer. Their markup is the same on every page: the
+   stamper writes it from brand/frame.txt. */
 header[data-of]{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);background:rgba(7,10,18,.6);border-bottom:1px solid var(--line)}
 header[data-of] nav{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;padding:14px 20px}
 header[data-of] a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;border:0;transition:color .2s}

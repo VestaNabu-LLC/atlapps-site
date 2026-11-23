@@ -31,7 +31,7 @@
 // block of structured data (ld+json). The
 // stamper adds everything else from this folder: the stylesheet, the fonts,
 // the header and footer (brand/frame.txt), the scripts, the page's address
-// and its icon. So every page of every Monaidea site looks and behaves the
+// and its icon. So every page of the site looks and behaves the
 // same, and a page cannot bring a look, a script or a frame of its own: no
 // <script>, <style>, <link> or <iframe>, no style or on… attribute, no class
 // the stylesheet does not know. Links are "#…", "/…" (checked: the page or
@@ -44,10 +44,10 @@
 // "sections" (a product's own pages get a bar under the header: its name, its
 // mark as SVG path data in a 32 by 32 box, and its pages), "private" (other
 // top-level names GitHub Pages must not publish; pages/, brand/, site.json,
-// README.md and CLAUDE.md never are), and "platform": true on the brand's own
-// site, which also publishes the platform's files.
+// README.md and CLAUDE.md never are).
 //
-// Nothing in this file is about one site.
+// Mapstone Apps' own stamper: this folder is the only source of the site's
+// look, header and footer.
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -65,15 +65,13 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 // ---------------------------------------------------------------- the frame
 
-// The same rules as the platform's own reader (pages.ReadFrame in
-// standalone-harnessed): a frame that stamps here is one the platform accepts.
 const LINK = /^https:\/\/[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+(\/[A-Za-z0-9._~:/?#@!$&'()*+,;=%-]*)?$/;
 const words = (s, most) => [...s].length > 0 && [...s].length <= most && !/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}\p{Co}\p{Cs}]/u.test(s);
-const MOST = { menu: 8, foot: 12, notes: 2, shops: 12, bytes: 4096 };
+const MOST = { menu: 8, foot: 12, notes: 2, bytes: 4096 };
 
 export function readFrame(text) {
   if (Buffer.byteLength(text) > MOST.bytes) refuse(`frame.txt: longer than ${MOST.bytes} bytes`);
-  const frame = { brand: null, menu: [], foot: [], notes: [], shops: [] };
+  const frame = { brand: null, menu: [], foot: [], notes: [] };
   for (const line of text.replace(/\r/g, '').split('\n')) {
     if (line.trim() === '') continue;
     const bad = (why) => refuse(`frame.txt: ${why}: ${line}`);
@@ -97,25 +95,24 @@ export function readFrame(text) {
       } else {
         frame[parts[0].toLowerCase()].push(l);
       }
-    } else if (parts.length === 4 && parts[0] === 'Shop') {
-      if (!words(parts[3], 160)) bad("a shop's text is 1 to 160 characters");
-      frame.shops.push({ ...link(parts[1], parts[2]), text: parts[3] });
     } else {
-      bad('not a Brand, Menu, Foot, Note or Shop line');
+      bad('not a Brand, Menu, Foot or Note line');
     }
   }
-  for (const list of ['menu', 'foot', 'notes', 'shops']) {
+  for (const list of ['menu', 'foot', 'notes']) {
     if (frame[list].length > MOST[list]) refuse(`frame.txt: more than ${MOST[list]} ${list} lines`);
   }
   if (!frame.brand) refuse('frame.txt: no Brand line');
   return frame;
 }
 
-// The header and the footer, in the platform's own markup (its templates in
-// internal/pages/frame.go), so brand/css/chrome.css styles both alike.
+// The header and the footer.
 const MARK = 'the brand';
-function header(frame, home) {
-  const item = (l) => `<a href="${esc(l.url)}"${l.url === home ? ' aria-current="true"' : ''}>${esc(l.name)}</a>`;
+// A menu item is marked on the page it leads to and on every page under it
+// (the Ledgerstone item on /ledgerstone/guide/).
+function header(frame, address) {
+  const here = (url) => !url.includes('#') && (url === address || (new URL(url).pathname !== '/' && address.startsWith(url)));
+  const item = (l) => `<a href="${esc(l.url)}"${here(l.url) ? ' aria-current="true"' : ''}>${esc(l.name)}</a>`;
   return `<header data-of="${MARK}"><nav><a class="brand" href="${esc(frame.brand.url)}">${esc(frame.brand.name)}</a>${frame.menu.map(item).join('')}</nav></header>`;
 }
 function footer(frame, notes) {
@@ -129,32 +126,6 @@ const css = (...names) => names.map((name) => brandText(`css/${name}.css`).trim(
 
 // What a hand-built site serves at /style.css.
 export const siteStyle = () => css('font', 'tokens', 'chrome', 'site');
-
-// What the owner pastes into the platform (Products > How the sites look). The
-// platform writes it into each page, and its database refuses a stylesheet
-// that loads anything from another host (standalone-harnessed, migration
-// 0043: a page gives nothing away about who reads it). So the display
-// typeface travels inside the stylesheet, and the text and code typefaces,
-// which would not fit in the 64 KB the platform takes, fall back to the
-// reader's own.
-const PLATFORM_FONTS = ['space-grotesk.woff2'];
-const PLATFORM_REFUSES = /<\/|<script|javascript:|expression\(|@import|url\s*\(\s*["']?\s*(https?:)?\/\//i;
-export function platformStyle() {
-  const faces = brandText('css/font.css').match(/@font-face\{[^}]*\}/g) ?? [];
-  const inside = PLATFORM_FONTS.map((file) => {
-    const face = faces.find((rule) => rule.includes(`url(/fonts/${file})`));
-    if (!face) refuse(`brand/css/font.css: no @font-face for /fonts/${file}`);
-    return face.replace(`url(/fonts/${file})`, `url(data:font/woff2;base64,${readFileSync(join(BRAND, 'fonts', file)).toString('base64')})`);
-  });
-  const rules = [...inside, css('tokens', 'chrome', 'platform')].join('\n').trim();
-  // Its first line names its version, so whoever pastes it can see that it is
-  // the new one and not a copy a browser kept.
-  const text = `/* The Monaidea brand for the pages the platform publishes. Version ${hash(rules)}. Written by brand/stamp.mjs: change brand/css, not this. */\n${rules}`;
-  if (Buffer.byteLength(text) > 65536 || PLATFORM_REFUSES.test(text)) {
-    refuse('the platform stylesheet is not one the platform takes: at most 65536 bytes, nothing that runs, nothing loaded from another host');
-  }
-  return text;
-}
 
 // Every class a hand-built page may use.
 function knownClasses() {
@@ -256,7 +227,7 @@ const walk = (dir, under = '') => readdirSync(join(dir, under), { withFileTypes:
 const pathOf = (file) => '/' + file.replace(/(^|\/)index\.html$/, '$1');
 const isFile = (path) => existsSync(path) && statSync(path).isFile();
 // Names the stamper writes itself, and names GitHub Pages never publishes.
-const RESERVED = /^(style\.css|site\.js|contact\.js|sitemap\.xml|robots\.txt|_config\.yml|fonts\/|platform\/)/;
+const RESERVED = /^(style\.css|site\.js|contact\.js|sitemap\.xml|robots\.txt|_config\.yml|fonts\/)/;
 const PRIVATE = ['pages', 'brand', 'site.json', 'README.md', 'CLAUDE.md'];
 const hidden = (name) => name.startsWith('.') || name.startsWith('_') || name === 'node_modules';
 
@@ -327,10 +298,6 @@ export function buildSite(siteDir) {
   const assets = { 'style.css': siteStyle(), 'site.js': brandText('site.js'), 'contact.js': brandText('contact.js') };
   for (const [name, text] of Object.entries(assets)) out.set(name, text);
   for (const file of walk(join(BRAND, 'fonts'))) out.set(`fonts/${file}`, readFileSync(join(BRAND, 'fonts', file)));
-  if (site.platform) {
-    out.set('platform/style.css', platformStyle() + '\n');
-    out.set('platform/frame.txt', brandText('frame.txt'));
-  }
   const v = Object.fromEntries(Object.entries(assets).map(([name, text]) => [name, `/${name}?v=${hash(text)}`]));
   const byPath = new Map(pages.map((page) => [pathOf(page.file), page]));
   const sectionOf = (path) => Object.entries(site.sections).find(([key]) => path.startsWith(`/${key}/`))?.[1];
@@ -378,7 +345,7 @@ export function buildSite(siteDir) {
       page.data ? `<script type="application/ld+json">${page.data}</script>` : '',
       '</head><body>',
       '<div class="sky" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>',
-      header(frame, home),
+      header(frame, address),
       (section ? subBar(section, path) : '') + page.main,
       footer(frame, site.notes),
       `<script src="${v['site.js']}" defer></script>${page.form ? `<script src="${v['contact.js']}" defer></script>` : ''}`,
